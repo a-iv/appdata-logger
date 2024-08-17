@@ -35,10 +35,30 @@ def create_separate_file_handler(
     )
 
 
+class StdOutFilter(logging.Filter):
+    def filter(self, rec):
+        return rec.levelno < logging.WARNING
+
+
+def create_stdout_and_stderr_handlers() -> List[logging.Handler]:
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.addFilter(StdOutFilter())
+    stderr_handler = logging.StreamHandler(sys.stderr)
+    stderr_handler.setLevel(logging.WARNING)
+    return [stdout_handler, stderr_handler]
+
+
 def create_stdout_and_file_handlers(
-        log_folder: Path, make_dirs: bool = True, caller_file_path: str = None) -> List[logging.Handler]:
-    return [
-        logging.StreamHandler(sys.stdout),
+        log_folder: Path,
+        make_dirs: bool = True,
+        caller_file_path: str = None,
+        separate_stdout_and_stderr: bool = False,
+) -> List[logging.Handler]:
+    if separate_stdout_and_stderr:
+        result = create_stdout_and_stderr_handlers()
+    else:
+        result = [logging.StreamHandler(sys.stdout)]
+    return result + [
         create_separate_file_handler(log_folder=log_folder, make_dirs=make_dirs, caller_file_path=caller_file_path),
     ]
 
@@ -55,6 +75,7 @@ def config_with_stdout_and_file_handlers(
         level: int = logging.INFO,
         format: str = TIME_AND_LEVEL_WITHOUT_NAME_FORMAT,
         datefmt: str = DATE_TIME_FORMAT,
+        separate_stdout_and_stderr: bool = False,
 ) -> None:
     log_folder = get_appdata_log_folder(application)
     logging.basicConfig(
@@ -65,6 +86,7 @@ def config_with_stdout_and_file_handlers(
             log_folder=log_folder,
             make_dirs=make_dirs,
             caller_file_path=caller_file_path,
+            separate_stdout_and_stderr=separate_stdout_and_stderr,
         ),
     )
 
