@@ -48,7 +48,7 @@ def create_stdout_and_stderr_handlers() -> List[logging.Handler]:
     return [stdout_handler, stderr_handler]
 
 
-def create_stdout_and_file_handlers(
+def create_console_and_file_handlers(
         log_folder: Path,
         make_dirs: bool = True,
         caller_file_path: str = None,
@@ -68,7 +68,7 @@ def get_appdata_log_folder(application: str) -> Path:
 
 
 # noinspection PyShadowingBuiltins,SpellCheckingInspection
-def config_with_stdout_and_file_handlers(
+def config_with_console_and_file_handlers(
         application: str,
         make_dirs: bool = True,
         caller_file_path: str = None,
@@ -82,7 +82,7 @@ def config_with_stdout_and_file_handlers(
         level=level,
         format=format,
         datefmt=datefmt,
-        handlers=create_stdout_and_file_handlers(
+        handlers=create_console_and_file_handlers(
             log_folder=log_folder,
             make_dirs=make_dirs,
             caller_file_path=caller_file_path,

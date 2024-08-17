@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    appdata_logger.config_with_stdout_and_file_handlers(application='myapp', caller_file_path=__file__)
+    appdata_logger.config_with_console_and_file_handlers(application='myapp', caller_file_path=__file__)
     appdata_logger.log_command_line()
     logger.info('Started')
 

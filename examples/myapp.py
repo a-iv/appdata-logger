@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    appdata_logger.config_with_stdout_and_file_handlers(
+    appdata_logger.config_with_console_and_file_handlers(
         application='myapp',
         separate_stdout_and_stderr=True,
     )
