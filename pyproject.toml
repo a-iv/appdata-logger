@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "adddata_logger"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
   { name="Alexander Ivanov", email="alexander.vl.ivanov@gmail.com" },
 ]
 description = "Configure logger to write logs into the appdata directory"
 readme = "README.md"
-requires-python = ">=2.7"
+requires-python = ">=3.6"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
