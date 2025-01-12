@@ -1,5 +1,9 @@
 Configure logger to write logs into the ``%appdata%`` directory.
 
+Install:
+
+    pip install appdata-logger
+
 Usage:
 
     import logging
