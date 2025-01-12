@@ -18,8 +18,11 @@ def create_separate_log_path(
         caller_file_path = sys.argv[0]
     executable_name, _extension = os.path.splitext(os.path.basename(caller_file_path))
     # noinspection PyUnresolvedReferences,PyProtectedMember
-    start_time = datetime.datetime.fromtimestamp(logging._startTime)
-    start_time_string = start_time.isoformat('-').replace(':', '-')
+    start_time_time = logging._startTime
+    if sys.version_info >= (3, 13):
+        start_time_time = start_time_time / 1e9
+    start_time_datetime = datetime.datetime.fromtimestamp(start_time_time)
+    start_time_string = start_time_datetime.isoformat('-').replace(':', '-')
     if make_dirs:
         os.makedirs(log_folder, exist_ok=True)
     pid = os.getpid()
